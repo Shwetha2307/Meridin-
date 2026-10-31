@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In &middot; Meridian People Suite</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="auth-page">
+    <!-- Left Enterprise Brand & RBAC Matrix Panel -->
+    <aside class="auth-showcase" aria-label="Meridian People Suite overview">
+      <a class="sidebar-brand" href="login.html" style="padding:0;">
+        <svg class="brand-logo" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="#3256d6"/>
+          <path d="M8.5 22.5V10.5L16 18l7.5-7.5v12" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <div class="brand-name">Meridian</div>
+          <div class="brand-tag">People Suite</div>
+        </div>
+      </a>
+
+      <div class="auth-hero-copy">
+        <div class="auth-eyebrow">
+          <svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Enterprise Identity &amp; RBAC
+        </div>
+        <h1>Unified Workforce &amp; Operations Platform</h1>
+        <p>
+          Manage your global organization directory, reporting hierarchies, leave workflows, and hardware inventory with granular role-based access control.
+        </p>
+
+        <div class="rbac-matrix-card">
+          <div class="rbac-matrix-title">Role-Based Access Control (RBAC) Matrix</div>
+          <table class="rbac-matrix-table" aria-label="Role permissions comparison">
+            <thead>
+              <tr>
+                <th>Capability</th>
+                <th>Admin</th>
+                <th>HR Mgr</th>
+                <th>Manager</th>
+                <th>Employee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Directory &amp; Org Tree</td>
+                <td><span class="badge badge-active">Full</span></td>
+                <td><span class="badge badge-active">Full</span></td>
+                <td><span class="badge badge-info">Read</span></td>
+                <td><span class="badge badge-info">Read</span></td>
+              </tr>
+              <tr>
+                <td>Compensation (Salary)</td>
+                <td><span class="badge badge-active">All</span></td>
+                <td><span class="badge badge-active">All</span></td>
+                <td><span class="badge badge-on-leave">Self Only</span></td>
+                <td><span class="badge badge-on-leave">Self Only</span></td>
+              </tr>
+              <tr>
+                <td>Leave Approvals</td>
+                <td><span class="badge badge-active">Approve</span></td>
+                <td><span class="badge badge-active">Approve</span></td>
+                <td><span class="badge badge-active">Approve</span></td>
+                <td><span class="badge badge-info">Apply</span></td>
+              </tr>
+              <tr>
+                <td>Hardware Asset Ops</td>
+                <td><span class="badge badge-active">Manage</span></td>
+                <td><span class="badge badge-active">Assign</span></td>
+                <td><span class="badge badge-info">View</span></td>
+                <td><span class="badge badge-info">View</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="display:flex; align-items:center; justify-content:space-between; font-size:0.76rem; color:var(--text-muted);">
+        <span>Meridian Enterprise v4.1 &bull; Spring Security 6 RBAC</span>
+        <span>Zero External Dependencies</span>
+      </div>
+    </aside>
+
+    <!-- Right Sign-In Form & One-Click Role Switcher -->
+    <main class="auth-panel-wrap">
+      <div class="auth-card">
+        <div class="auth-card-header">
+          <h2>Sign in to your workspace</h2>
+          <p>Enter your enterprise credentials or select a demo role below to sign in immediately.</p>
+        </div>
+
+        <div id="login-error" class="auth-error-alert" role="alert">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span id="login-error-text">Invalid username or password.</span>
+        </div>
+
+        <form id="login-form" novalidate>
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label" for="login-username">Username <span class="req">*</span></label>
+            <input type="text" id="login-username" class="form-input form-input-plain" placeholder="e.g. admin, hr, manager, employee" autocomplete="username" required autofocus>
+          </div>
+
+          <div class="form-group" style="margin-bottom:1.25rem;">
+            <label class="form-label" for="login-password">Password <span class="req">*</span></label>
+            <input type="password" id="login-password" class="form-input form-input-plain" placeholder="Enter your password" autocomplete="current-password" required>
+          </div>
+
+          <button type="submit" id="login-submit-btn" class="btn btn-primary" style="width:100%; height:40px; font-size:0.9rem;">
+            <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+            Sign in to Meridian
+          </button>
+        </form>
+
+        <div class="auth-divider">Quick Demo Role Sign-In (1-Click)</div>
+
+        <div class="demo-accounts-grid">
+          <button type="button" class="demo-account-btn" data-user="admin" data-pass="admin123">
+            <div class="demo-account-top">
+              <span class="role-pill role-pill-ADMIN">Admin</span>
+              <span class="demo-account-creds">admin / admin123</span>
+            </div>
+            <div class="demo-account-name">Marcus Vance</div>
+            <div style="font-size:0.72rem; color:var(--text-muted);">Full system &amp; org control</div>
+          </button>
+
+          <button type="button" class="demo-account-btn" data-user="hr" data-pass="hr123">
+            <div class="demo-account-top">
+              <span class="role-pill role-pill-HR_MANAGER">HR Manager</span>
+              <span class="demo-account-creds">hr / hr123</span>
+            </div>
+            <div class="demo-account-name">Elena Rostova</div>
+            <div style="font-size:0.72rem; color:var(--text-muted);">People ops, salary &amp; assets</div>
+          </button>
+
+          <button type="button" class="demo-account-btn" data-user="manager" data-pass="manager123">
+            <div class="demo-account-top">
+              <span class="role-pill role-pill-MANAGER">Manager</span>
+              <span class="demo-account-creds">manager / manager123</span>
+            </div>
+            <div class="demo-account-name">Alexander Wright</div>
+            <div style="font-size:0.72rem; color:var(--text-muted);">Leave approvals &amp; read-only</div>
+          </button>
+
+          <button type="button" class="demo-account-btn" data-user="employee" data-pass="emp123">
+            <div class="demo-account-top">
+              <span class="role-pill role-pill-EMPLOYEE">Employee</span>
+              <span class="demo-account-creds">employee / emp123</span>
+            </div>
+            <div class="demo-account-name">Liam O'Connor</div>
+            <div style="font-size:0.72rem; color:var(--text-muted);">Self-service leave &amp; directory</div>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script>
+    (function () {
+      const form = document.getElementById("login-form");
+      const userIn = document.getElementById("login-username");
+      const passIn = document.getElementById("login-password");
+      const errBox = document.getElementById("login-error");
+      const errText = document.getElementById("login-error-text");
+      const submitBtn = document.getElementById("login-submit-btn");
+
+      async function performLogin(username, password) {
+        errBox.classList.remove("visible");
+        submitBtn.disabled = true;
+        try {
+          await window.EMS_API.login(username, password);
+          const next = new URLSearchParams(window.location.search).get("next") || "index.html";
+          window.location.href = next;
+        } catch (err) {
+          errText.textContent = err.message || "Invalid username or password.";
+          errBox.classList.add("visible");
+          submitBtn.disabled = false;
+        }
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const u = userIn.value.trim();
+        const p = passIn.value;
+        if (!u || !p) {
+          errText.textContent = "Please enter both username and password.";
+          errBox.classList.add("visible");
+          return;
+        }
+        performLogin(u, p);
+      });
+
+      document.querySelectorAll(".demo-account-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          userIn.value = btn.dataset.user;
+          passIn.value = btn.dataset.pass;
+          performLogin(btn.dataset.user, btn.dataset.pass);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

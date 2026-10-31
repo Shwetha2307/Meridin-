@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Off | Meridian People Suite</title>
+  <meta name="theme-color" content="#3256d6">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-title="Time Off">
+
+  <!-- Page Main Content -->
+  <main class="page-container">
+    <div class="page-hero">
+      <div class="hero-titles">
+        <h2>Time Off</h2>
+        <p>Review leave applications, manage employee PTO balances, and approve or decline requests in real time.</p>
+      </div>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="openApplyLeaveModal()">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Apply for Leave
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Status KPI Row -->
+    <div class="kpi-grid" style="margin-bottom: 1.5rem;">
+      <div class="kpi-card" style="--kpi-accent: var(--warning)">
+        <div class="kpi-header">
+          <span class="kpi-label">Pending Approval</span>
+          <div class="kpi-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        </div>
+        <div id="count-pending" class="kpi-value">0</div>
+        <div class="kpi-subtext">Requires managerial sign-off</div>
+      </div>
+
+      <div class="kpi-card" style="--kpi-accent: var(--success)">
+        <div class="kpi-header">
+          <span class="kpi-label">Approved Leaves</span>
+          <div class="kpi-icon-wrap"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        </div>
+        <div id="count-approved" class="kpi-value">0</div>
+        <div class="kpi-subtext">Active & scheduled absences</div>
+      </div>
+
+      <div class="kpi-card" style="--kpi-accent: var(--danger)">
+        <div class="kpi-header">
+          <span class="kpi-label">Rejected Requests</span>
+          <div class="kpi-icon-wrap"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+        </div>
+        <div id="count-rejected" class="kpi-value">0</div>
+        <div class="kpi-subtext">Declined or canceled</div>
+      </div>
+    </div>
+
+    <!-- Leave Balance Tracker -->
+    <section class="panel balance-panel" aria-labelledby="balance-title">
+      <div class="panel-header">
+        <h3 id="balance-title" class="panel-title">Leave Balance Tracker</h3>
+        <div class="panel-toolbar">
+          <label for="balance-emp-select" class="form-label">Employee</label>
+          <select id="balance-emp-select" class="form-select">
+            <option value="">Select Employee</option>
+          </select>
+        </div>
+      </div>
+      <div id="balance-grid" class="balance-grid"></div>
+    </section>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">
+        Leave Registry & Applications Feed
+      </div>
+
+      <div class="filter-group">
+        <select id="leave-status-filter" class="form-select">
+          <option value="">All Statuses</option>
+          <option value="PENDING">Pending Approval</option>
+          <option value="APPROVED">Approved</option>
+          <option value="REJECTED">Rejected</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Applicant</th>
+            <th>Type</th>
+            <th>Leave Window</th>
+            <th>Reason / Justification</th>
+            <th>Submission Date</th>
+            <th>Status</th>
+            <th style="text-align: right;">Decision Workflow</th>
+          </tr>
+        </thead>
+        <tbody id="leave-table-body">
+          <tr><td colspan="7" style="text-align:center; padding: 2rem;">Loading leave applications...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Apply Leave Modal -->
+  <div id="leave-modal" class="modal-overlay">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Submit Leave Application</h3>
+        <button class="modal-close-btn" onclick="closeModal('leave-modal')" title="Close">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="leave-form">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="form-group form-full">
+              <label class="form-label">Employee<span class="req">*</span></label>
+              <select id="leave-emp-select" class="form-select" required>
+                <option value="">Select Employee</option>
+              </select>
+            </div>
+
+            <div class="form-group form-full">
+              <label class="form-label">Leave Category<span class="req">*</span></label>
+              <select id="leave-type-select" class="form-select" required>
+                <option value="ANNUAL">Annual / Vacation Leave</option>
+                <option value="SICK">Sick & Medical Leave</option>
+                <option value="CASUAL">Casual Personal Leave</option>
+                <option value="MATERNITY">Maternity / Parental Leave</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Start Date<span class="req">*</span></label>
+              <input type="date" id="leave-start-date" class="form-input form-input-plain" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">End Date<span class="req">*</span></label>
+              <input type="date" id="leave-end-date" class="form-input form-input-plain" required>
+            </div>
+
+            <div class="form-group form-full">
+              <label class="form-label">Reason / Justification<span class="req">*</span></label>
+              <textarea id="leave-reason" class="form-textarea" required placeholder="Please outline the purpose of your leave request..."></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('leave-modal')">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit Application</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      initLeavePage();
+    });
+  </script>
+</body>
+</html>
