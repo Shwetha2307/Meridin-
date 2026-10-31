@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#3256d6">
+  <title>Dashboard | Meridian People Suite</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-title="Dashboard">
+
+  <main class="page-container">
+    <div class="page-hero">
+      <div class="hero-titles">
+        <h2>Welcome back</h2>
+        <p id="today-date">Here is what is happening across your organization.</p>
+      </div>
+      <div class="hero-actions">
+        <a href="leave.html" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Review time off
+        </a>
+        <a href="employees.html" class="btn btn-primary">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          Manage people
+        </a>
+      </div>
+    </div>
+
+    <section id="kpi-container" class="kpi-grid" aria-label="Key metrics">
+      <div class="kpi-card"><span class="skeleton" style="width:40%"></span><div class="kpi-value" style="margin-top:1rem"><span class="skeleton" style="height:28px;width:30%"></span></div></div>
+      <div class="kpi-card"><span class="skeleton" style="width:40%"></span><div class="kpi-value" style="margin-top:1rem"><span class="skeleton" style="height:28px;width:30%"></span></div></div>
+      <div class="kpi-card"><span class="skeleton" style="width:40%"></span><div class="kpi-value" style="margin-top:1rem"><span class="skeleton" style="height:28px;width:30%"></span></div></div>
+      <div class="kpi-card"><span class="skeleton" style="width:40%"></span><div class="kpi-value" style="margin-top:1rem"><span class="skeleton" style="height:28px;width:30%"></span></div></div>
+    </section>
+
+    <div class="dashboard-layout">
+      <section class="panel" aria-labelledby="dept-title">
+        <div class="panel-header">
+          <h3 class="panel-title" id="dept-title">Headcount by department</h3>
+          <a class="panel-link" href="employees.html">View people</a>
+        </div>
+        <div id="department-distribution" class="distribution-list">
+          <span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="status-title">
+        <div class="panel-header"><h3 class="panel-title" id="status-title">Workforce status</h3></div>
+        <div id="status-breakdown"><span class="skeleton"></span></div>
+      </section>
+    </div>
+
+    <div class="dashboard-layout">
+      <section class="panel" aria-labelledby="activity-title">
+        <div class="panel-header"><h3 class="panel-title" id="activity-title">Recent activity</h3></div>
+        <div id="activity-timeline" class="timeline-list">
+          <span class="skeleton"></span>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="pending-title">
+        <div class="panel-header">
+          <h3 class="panel-title" id="pending-title">Pending approvals</h3>
+          <a class="panel-link" href="leave.html">See all</a>
+        </div>
+        <div id="pending-list"><span class="skeleton"></span></div>
+      </section>
+    </div>
+  </main>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => { initDashboardPage(); });
+  </script>
+</body>
+</html>
