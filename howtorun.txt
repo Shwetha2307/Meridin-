@@ -1,0 +1,19 @@
+How to Open & Run It in IntelliJ IDEA on Any Machine (30 Seconds)
+
+When you pull/copy this project onto another machine and open it in IntelliJ IDEA:
+
+Open the exact javprod folder (the folder that directly contains pom.xml—do not open a parent folder above javprod).
+Link Maven (pom.xml):
+In the left Project tree, right-click pom.xml and click "Add as Maven Project" (or if the Maven icon is already on the right sidebar, click the Maven tab 
+→
+→ click the Reload All Maven Projects 
+↻
+↻ icon).
+Wait ~15–30 seconds at the bottom status bar while IntelliJ indexes JDK 21 and downloads the Spring Boot JARs.
+Ensure Project SDK is Java 21:
+Go to File 
+→
+→ Project Structure 
+→
+→ Project and confirm SDK is set to Java 21.
+Press the Green Run Button next to public static void main in JavprodApplication.java — all red errors will be gone and the app will start on http://localhost:8080/login.html.

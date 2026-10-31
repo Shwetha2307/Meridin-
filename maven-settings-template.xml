@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Only needed on networks that require an HTTP proxy to reach the internet.
+  Copy to %USERPROFILE%\.m2\settings.xml and replace the placeholder values.
+  If your company has an internal Maven mirror (Nexus / Artifactory), fill in the <mirror> block instead
+  (or as well) and delete whichever section you don't need.
+-->
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
+
+  <proxies>
+    <proxy>
+      <id>corporate-proxy</id>
+      <active>true</active>
+      <protocol>https</protocol>
+      <host>proxy.yourcompany.com</host>
+      <port>8080</port>
+      <!-- <username>your-user</username> -->
+      <!-- <password>your-password</password> -->
+      <nonProxyHosts>localhost|127.0.0.1</nonProxyHosts>
+    </proxy>
+  </proxies>
+
+  <!--
+  <mirrors>
+    <mirror>
+      <id>company-mirror</id>
+      <mirrorOf>*</mirrorOf>
+      <url>https://artifactory.yourcompany.com/artifactory/maven-remote/</url>
+    </mirror>
+  </mirrors>
+  -->
+</settings>
